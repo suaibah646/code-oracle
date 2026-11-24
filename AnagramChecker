@@ -1,0 +1,47 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class AnagramChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Meminta input string pertama dan kedua dari pengguna
+        System.out.print("Masukkan kata/frasa pertama: ");
+        String str1 = scanner.nextLine();
+
+        System.out.print("Masukkan kata/frasa kedua: ");
+        String str2 = scanner.nextLine();
+
+        // Memeriksa apakah keduanya anagram
+        if (isAnagram(str1, str2)) {
+            System.out.println("Hasil: Benar, kedua string tersebut adalah anagram.");
+        } else {
+            System.out.println("Hasil: Bukan anagram.");
+        }
+
+        scanner.close();
+    }
+
+    // Method untuk mengecek anagram
+    public static boolean isAnagram(String s1, String s2) {
+        // Menghapus semua spasi dan tanda baca, lalu ubah menjadi huruf kecil (lowercase)
+        String clean1 = s1.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        String clean2 = s2.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        // Jika panjang setelah dibersihkan berbeda, maka pasti bukan anagram
+        if (clean1.length() != clean2.length()) {
+            return false;
+        }
+
+        // Ubah string menjadi array karakter
+        char[] charArray1 = clean1.toCharArray();
+        char[] charArray2 = clean2.toCharArray();
+
+        // Urutkan array karakter
+        Arrays.sort(charArray1);
+        Arrays.sort(charArray2);
+
+        // Bandingkan apakah kedua array karakter sama persis
+        return Arrays.equals(charArray1, charArray2);
+    }
+}
